@@ -1,0 +1,4 @@
+/* Add a border to the canvas */
+#graph {
+    border: 2px solid black; /* You can change the color and width as needed */
+}
