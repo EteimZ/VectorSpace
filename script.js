@@ -1,4 +1,4 @@
-import { Vector } from "./modules/linear.mjs";
+import { Vector } from "./modules/linear.js";
 
 const canvas = document.getElementById("graph");
 const ctx = canvas.getContext("2d");
@@ -37,6 +37,7 @@ for (let i = -250; i <= 250; i += 50) {
     ctx.stroke(); 
 }
 
+// visualize vector addition
 const x_unit = new Vector(ctx, 50, 0, "red");
 x_unit.draw();
 

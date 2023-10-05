@@ -28,7 +28,8 @@ export class Vector{
     add(other){
         let x = this.x + other.x;
         let y = this.y + other.y;
+        let color = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})` 
         
-        return new Vector(this.context, x, y, "yellow");
+        return new Vector(this.context, x, y, color);
     }
 };
