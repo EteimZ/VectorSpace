@@ -1,21 +1,29 @@
 // A vector class it takes in context, x, y and color
 
-class Matrix {
-    constructor()
-}
-
-export class Vector{
-    constructor( x, y, color){
+export class Matrix {
+    constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.color = color;  
+    }
+}
+
+export class Vector {
+    constructor(x, y, color = "yellow") {
+        this.x = x;
+        this.y = y;
+        this.color = color;
     }
 
-    add(other){
+    transform(matrix) {
+        this.x = this.x * matrix.x[0] + this.y * matrix.y[0];
+        this.y = this.x * matrix.x[1] + this.y * matrix.y[1];
+    }
+
+    add(other) {
         let x = this.x + other.x;
         let y = this.y + other.y;
-        let color = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})` 
-        
+        let color = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`
+
         return new Vector(this.context, x, y, color);
     }
 };
@@ -26,27 +34,45 @@ export class VectorSpace {
     constructor(canvas, context) {
         this.canvas = canvas;
         this.ctx = context;
+        this.i_hat = new Vector(50, 0, "green");
+        this.j_hat = new Vector(0, 50, "red");
         this.vectors = [];
+        this.vectors.push(this.i_hat, this.j_hat);
     }
 
-    drawSpace(){
+    init() {
+        // transform the canvas grid to cartesian
+        this.ctx.translate(this.canvas.width / 2, this.canvas.height / 2);
+        this.ctx.scale(1, -1);
+    }
+
+    render() {
+        this.ctx.clearRect(-250, -250, this.canvas.width, this.canvas.height);
         this.drawGrid();
-        this.addUnitVectors();
+        for (let i = 0; i < this.vectors.length; i++) {
+            this.drawVector(this.vectors[i]);
+        }
+        this.ctx.beginPath();
+        this.ctx.arc(0, 0, 4, 0, 2 * Math.PI);
+        this.ctx.fillStyle = "black";
+        this.ctx.fill();
+        this.ctx.closePath();
     }
 
-    addUnitVectors() {
-        let i_hat = new Vector(50, 0, "red");
-        let j_hat = new Vector(0, 50, "green");
+    transform(matrix) {
+        this.i_hat.x = 50 * matrix.x[0];
+        this.i_hat.y = 0  * matrix.x[0];
+        this.j_hat.x = 50*matrix.x[1];
+        this.j_hat.y = 50*matrix.y[1];
 
-        this.vectors.push(i_hat, j_hat);
-        console.log(i_hat);
-        this.drawVector(i_hat);
-        this.drawVector(j_hat);
+        //const i_rotate = Math.atan2(-50, 50);
+        
+        this.render();
     }
 
     addVector(vect) {
         this.vectors.push(vect);
-        this.drawVector(vect);
+        this.render();
     }
 
     // https://stackoverflow.com/a/6333775
@@ -67,11 +93,10 @@ export class VectorSpace {
     }
 
     drawGrid() {
-        // transform the canvas grid to cartesian
-        this.ctx.translate(this.canvas.width / 2, this.canvas.height / 2);
-        this.ctx.scale(1, -1);
-
         // Draw horizontal grid lines
+
+        this.ctx.strokeStyle = "black";
+
         this.ctx.beginPath();
         this.ctx.moveTo(-250, 0);
         this.ctx.lineTo(250, 0);

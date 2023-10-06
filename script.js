@@ -1,30 +1,19 @@
-import { Vector, VectorSpace } from "./modules/linear.js";
+import { Vector, Matrix, VectorSpace } from "./modules/linear.js";
 
 const canvas = document.getElementById("graph");
 const ctx = canvas.getContext("2d");
 
 let vs = new VectorSpace(canvas, ctx);
-vs.drawSpace();
+vs.init();
 
-const new_v = new Vector(50, 100, "yellow");
-vs.addVector(new_v);
+vs.render();
 
-// // visualize vector addition
-// const i_hat = new Vector(ctx, 50, 0, "red");
-// i_hat.draw();
+const v1 = new Vector(50, 100, "blue");
+vs.addVector(v1);
 
-// const j_hat = new Vector(ctx, 0, 50, "green")
-// j_hat.draw();
+const m = new Matrix([1, 1], [0, 1]);
+vs.transform(m);
 
-// let result = i_hat.add(j_hat);
-// result.draw();
-
-// Draw the circle
-// ctx.beginPath();
-// ctx.arc(0, 0, 4, 0, 2 * Math.PI);
-// ctx.fillStyle = "black";
-// ctx.fill();
-// ctx.closePath();
 
 // const angleRadians = Math.atan2(-50, 50);
 // console.log(angleRadians)
