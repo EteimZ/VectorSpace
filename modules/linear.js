@@ -47,7 +47,6 @@ export class VectorSpace {
     }
 
     render() {
-        this.ctx.clearRect(-250, -250, this.canvas.width, this.canvas.height);
         this.drawGrid();
         for (let i = 0; i < this.vectors.length; i++) {
             this.drawVector(this.vectors[i]);
@@ -60,14 +59,25 @@ export class VectorSpace {
     }
 
     transform(matrix) {
-        this.i_hat.x = 50 * matrix.x[0];
-        this.i_hat.y = 0  * matrix.x[0];
-        this.j_hat.x = 50*matrix.x[1];
-        this.j_hat.y = 50*matrix.y[1];
+        // this.i_hat.x = 50 * matrix.x[0];
+        // this.i_hat.y = 0  * matrix.x[0];
+        // this.j_hat.x = 50*matrix.x[1];
+        // this.j_hat.y = 50*matrix.y[1];
 
         //const i_rotate = Math.atan2(-50, 50);
+
+        //this.ctx.transform(1, 0.5, 0, 1, 0, 0); 
+        this.ctx.clearRect(-250, -250, this.canvas.width, this.canvas.height);
+        //this.ctx.save();
+        this.ctx.transform(1, 0, 1, 1, 0, 0); // Shear by 0.5 in the y-axis
+
         
         this.render();
+        
+        //this.ctx.restore();
+        
+        this.drawGrid();
+
     }
 
     addVector(vect) {
@@ -98,30 +108,30 @@ export class VectorSpace {
         this.ctx.strokeStyle = "black";
 
         this.ctx.beginPath();
-        this.ctx.moveTo(-250, 0);
-        this.ctx.lineTo(250, 0);
+        this.ctx.moveTo(-500, 0);
+        this.ctx.lineTo(500, 0);
         this.ctx.lineWidth = 2;
         this.ctx.stroke();
 
-        for (let i = -250; i <= 250; i += 50) {
+        for (let i = -500; i <= 500; i += 50) {
             this.ctx.beginPath();
-            this.ctx.moveTo(-250, i);
-            this.ctx.lineTo(250, i);
+            this.ctx.moveTo(-500, i);
+            this.ctx.lineTo(500, i);
             this.ctx.lineWidth = 1;
             this.ctx.stroke();
         }
 
         // Draw vertical grid lines
         this.ctx.beginPath();
-        this.ctx.moveTo(0, -250);
-        this.ctx.lineTo(0, 250);
+        this.ctx.moveTo(0, -500);
+        this.ctx.lineTo(0, 500);
         this.ctx.lineWidth = 2;
         this.ctx.stroke();
 
-        for (let i = -250; i <= 250; i += 50) {
+        for (let i = -500; i <= 500; i += 50) {
             this.ctx.beginPath();
-            this.ctx.moveTo(i, -250);
-            this.ctx.lineTo(i, 250);
+            this.ctx.moveTo(i, -500);
+            this.ctx.lineTo(i, 500);
             this.ctx.lineWidth = 1;
             this.ctx.stroke();
         }

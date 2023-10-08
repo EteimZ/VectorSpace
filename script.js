@@ -14,6 +14,9 @@ vs.addVector(v1);
 const m = new Matrix([1, 1], [0, 1]);
 vs.transform(m);
 
+const v2 = new Vector(50, 200, "orange");
+vs.addVector(v2);
+
 
 // const angleRadians = Math.atan2(-50, 50);
 // console.log(angleRadians)
