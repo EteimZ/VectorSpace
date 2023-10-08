@@ -11,55 +11,21 @@ vs.render();
 const v1 = new Vector(50, 100, "blue");
 vs.addVector(v1);
 
-const m = new Matrix([1, 1], [0, 1]);
-vs.transform(m);
-
 const v2 = new Vector(50, 200, "orange");
 vs.addVector(v2);
 
+const v3 = new Vector(100, 100, "purple");
+vs.addVector(v3);
 
-// const angleRadians = Math.atan2(-50, 50);
-// console.log(angleRadians)
+vs.render();
+const m = new Matrix([1, -2], [3, 0]);
+vs.transform(m);
 
-// ctx.save();
+const m1 = new Matrix([Math.cos(Math.PI / 4), -Math.sin(Math.PI / 4)], [Math.sin(Math.PI / 4), Math.cos(Math.PI / 4)]);
 
-// const angleInRadians = Math.PI / 4; // Replace with your desired rotation angle
-// ctx.rotate(angleInRadians);
+vs.transform(m1);
 
-// ctx.strokeStyle = "black"
-// ctx.beginPath(); 
-// ctx.moveTo(0, -250); 
-// ctx.lineTo(0, 250);
-// ctx.lineWidth = 2;
-// ctx.stroke(); 
+const v4 = new Vector(-100, -100, "indigo");
+vs.addVector(v4);
 
-// for (let i = -250; i <= 250; i += 50) {
-//     ctx.beginPath(); 
-//     ctx.moveTo(i, -250); 
-//     ctx.lineTo(i, 250);
-//     ctx.lineWidth = 1;
-//     ctx.stroke(); 
-// }
-
-// ctx.restore();
-
-// ctx.strokeStyle = "black"
-
-
-// ctx.beginPath();
-// ctx.moveTo(-250, 0);
-// ctx.lineTo(250, 0);
-// ctx.lineWidth = 2;
-// ctx.stroke();
-
-// for (let i = -250; i <= 250; i += 50) {
-//     ctx.beginPath();
-//     ctx.moveTo(-250, i);
-//     ctx.lineTo(250, i);
-//     ctx.lineWidth = 1;
-//     ctx.stroke();
-// }
-
-// // I have figured out the rotation aspect
-
-// ctx.scale()
+vs.render();

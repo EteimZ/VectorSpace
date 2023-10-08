@@ -2,6 +2,12 @@
 
 export class Matrix {
     constructor(x, y) {
+        /*
+        x corresponds to the i row of the matrix
+        y corresponds to the j row of the matrix
+
+        They both consist of two values in an array
+        */
         this.x = x;
         this.y = y;
     }
@@ -12,11 +18,6 @@ export class Vector {
         this.x = x;
         this.y = y;
         this.color = color;
-    }
-
-    transform(matrix) {
-        this.x = this.x * matrix.x[0] + this.y * matrix.y[0];
-        this.y = this.x * matrix.x[1] + this.y * matrix.y[1];
     }
 
     add(other) {
@@ -48,6 +49,7 @@ export class VectorSpace {
 
     render() {
         this.drawGrid();
+        //this.ctx.restore();
         for (let i = 0; i < this.vectors.length; i++) {
             this.drawVector(this.vectors[i]);
         }
@@ -59,24 +61,19 @@ export class VectorSpace {
     }
 
     transform(matrix) {
-        // this.i_hat.x = 50 * matrix.x[0];
-        // this.i_hat.y = 0  * matrix.x[0];
-        // this.j_hat.x = 50*matrix.x[1];
-        // this.j_hat.y = 50*matrix.y[1];
-
-        //const i_rotate = Math.atan2(-50, 50);
-
-        //this.ctx.transform(1, 0.5, 0, 1, 0, 0); 
         this.ctx.clearRect(-250, -250, this.canvas.width, this.canvas.height);
-        //this.ctx.save();
-        this.ctx.transform(1, 0, 1, 1, 0, 0); // Shear by 0.5 in the y-axis
+        
+        /*
+         i  j
+        [1, 0]
+        [0, 1]
 
-        
-        this.render();
-        
-        //this.ctx.restore();
-        
-        this.drawGrid();
+        [1, 3]
+        [-2, 0]
+        */
+       
+        console.log(matrix.x[1])
+        this.ctx.transform(matrix.x[0], matrix.x[1], matrix.y[0], matrix.y[1], 0, 0);
 
     }
 
