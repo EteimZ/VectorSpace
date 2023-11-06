@@ -1,5 +1,4 @@
 // A vector class it takes in context, x, y and color
-
 export class Matrix {
     constructor(x, y) {
         /*
@@ -25,7 +24,36 @@ export class Vector {
         let y = this.y + other.y;
         let color = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`
 
-        return new Vector(this.context, x, y, color);
+        return new Vector(x, y, color);
+    }
+
+    sub(other) {
+        let x = this.x - other.x;
+        let y = this.y - other.y;
+        let color = this.randomColor();
+        return new Vector(x, y, color);
+    }
+
+    scale(x){
+        return this.length *= x;
+    }
+
+    angle(){
+        return Math.atan2(this.y, this.x);
+    }
+
+    get length() {
+        return Math.sqrt(this.x * this.x + this.y * this.y);
+    }
+
+    set length(x) {
+        var angle = this.angle();
+        this.x = Math.cos(angle) * x;
+        this.y = Math.sin(angle) * x;
+    }
+
+    randomColor(){
+        return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`
     }
 };
 
